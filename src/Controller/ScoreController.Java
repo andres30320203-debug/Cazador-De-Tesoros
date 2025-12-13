@@ -59,7 +59,14 @@ public class ScoreController {
     }
 
     public void clearScores(){
-        int confirm = javax.swing.JOptionPane.showConfirmDialog(view, "¿Estás seguro de que quieres borrar todas las puntuaciones?", "Limpiar puntuaciones", javax.swing.JOptionPane.YES_NO_OPTION); {
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+            view,
+            "¿Estás seguro de que quieres borrar todas las puntuaciones?",
+            "Limpiar puntuaciones",
+            javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
             scores.clear();
             saveScores();
             loadScores();

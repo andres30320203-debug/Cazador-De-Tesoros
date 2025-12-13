@@ -27,3 +27,11 @@ Explora ub tablero misterioso para encontrar tesoros ocultos mientras evitas tra
 - Java 8 o superior
 - 100 MB de espacio libre
 - Resolución mínima 800x600
+
+## Comandos
+
+### Compilar
+```bin src\Main\*.java src\Model\*.java src\View\*.java src\Controller\*.java```
+
+### Ejecutar
+```java -cp bin Main.Main```

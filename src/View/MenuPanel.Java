@@ -48,7 +48,7 @@ public class MenuPanel extends JPanel {
         mediumButton.addActionListener(e -> controller.startGame(2));
         hardButton.addActionListener(e -> controller.startGame(3));
         scoreButton.addActionListener(e -> controller.showScores());
-        exitButton.addActionListener(e -> System.exit());
+        exitButton.addActionListener(e -> System.exit(0));
 
         gbc.insets = new Insets(10, 50, 10, 50);
         mainPanel.add(easyButton, gbc);

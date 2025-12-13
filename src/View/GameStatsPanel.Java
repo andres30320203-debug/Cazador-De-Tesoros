@@ -182,9 +182,11 @@ public class GameStatsPanel extends JPanel {
     }
 
     //Metodo para resaltar estadisticas (pequeño efecto visual :D)
-    public void highlightStats() {
-        Timer highlightTimer = new Timer(500, e -> {
-            switch(stat.toLowerCase()) {
+    public void highlightStat(String stat) {
+        final String statKey = stat == null ? "" : stat.toLowerCase();
+
+        Timer highlightTimer = new Timer(0, e -> {
+            switch(statKey) {
                 case "score":
                     scoreValueLabel.setForeground(Color.RED);
                     break;
@@ -194,6 +196,8 @@ public class GameStatsPanel extends JPanel {
                 case "treasures":
                     treasuresValueLabel.setForeground(Color.RED);
                     break;
+                default:
+                    break;
             }
         });
 
@@ -201,8 +205,8 @@ public class GameStatsPanel extends JPanel {
         highlightTimer.start();
 
         //Restaurar color
-        Timer restoreTimer = new Timer(1000, e -> {
-            switch(stat.toLowerCase()) {
+        Timer restoreTimer = new Timer(800, e -> {
+            switch(statKey) {
                 case "score":
                     scoreValueLabel.setForeground(new Color(0, 100, 0));
                     break;
@@ -211,6 +215,8 @@ public class GameStatsPanel extends JPanel {
                     break;
                 case "treasures":
                     treasuresValueLabel.setForeground(new Color(255, 140, 0));
+                    break;
+                default:
                     break;
             }
         });

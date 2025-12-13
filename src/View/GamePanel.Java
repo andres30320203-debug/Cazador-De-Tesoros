@@ -56,23 +56,20 @@ public class GamePanel extends JPanel {
         gameTimer.start();
     }
 
-    public void initializeBoard(int sizw) {
+    public void initializeBoard(int boardSize) {
         JPanel boardPanel = (JPanel) getComponent(1);
         boardPanel.removeAll();
-        int size = 0;
-        boardPanel.setLayout(new GridLayout(size, size, 2, 2));
+        boardPanel.setLayout(new GridLayout(boardSize, boardSize, 2, 2));
 
-        cellButtons = new CellButton[size][size];
+        cellButtons = new CellButton[boardSize][boardSize];
 
-        for (int i=0; i<size; i++) {
-            for (int j=0; j<size; j++) {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 cellButtons[i][j] = new CellButton(i, j);
                 final int row = i;
                 final int col = j;
 
-                cellButtons[i][j].addActionListener(e -> {controller.cellClicked(row, col);
-
-                });
+                cellButtons[i][j].addActionListener(e -> controller.cellClicked(row, col));
 
                 boardPanel.add(cellButtons[i][j]);
             }

@@ -8,7 +8,7 @@ public class GameBoard {
     private int totalTreasures;
     private int totalTraps;
     private int treasuresRemaining;
-    private int trapsRemaining;
+
     private GameState state;
     private Player player;
     private Random random;
@@ -33,24 +33,23 @@ public class GameBoard {
         // Configuración según dificultad
         switch(difficulty) {
             case 1: // Fácil
-                totalTreasures = 5; 
-                totalTraps = 3; 
+                totalTreasures = 5;
+                totalTraps = 3;
                 break;
             case 2: // Medio
-                totalTreasures = 8; 
-                totalTraps = 6; 
+                totalTreasures = 8;
+                totalTraps = 6;
                 break;
             case 3: // Difícil
-                totalTreasures = 12; 
-                totalTraps = 10; 
+                totalTreasures = 12;
+                totalTraps = 10;
                 break;
             default:
-                totalTreasures = 8; 
-                totalTraps = 6; 
+                totalTreasures = 8;
+                totalTraps = 6;
         }
 
         treasuresRemaining = totalTreasures;
-        trapsRemaining = totalTraps;
 
         placeItems(Cell.CellType.TREASURE, totalTreasures);
 
