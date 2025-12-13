@@ -1,8 +1,8 @@
-package model;
+package Model;
 
 public class Treasure {
     private int value;
-    private booleam found;
+    private boolean found;
 
     public Treasure(int value) {
         this.value = value;

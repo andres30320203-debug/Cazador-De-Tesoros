@@ -1,6 +1,6 @@
-package controller;
+package Controller;
 
-import view.GameWindow;
+import View.GameWindow;
 import java.io.*;
 import java.util.*;
 
@@ -43,7 +43,7 @@ public class ScoreController {
         }
 
         //Ordenar por puntuación (descendiente)
-        score.sort((a, b) -> Integer.compare(b.scare, a.score));
+        scores.sort((a, b) -> Integer.compare(b.score, a.score));
 
         //Mostrar en la vista
         displayScores();
@@ -59,7 +59,7 @@ public class ScoreController {
     }
 
     public void clearScores(){
-        int confirm = javax.swing,JOptionPane.showConfirmDialog(view, "¿Estás seguro de que quieres borrar todas las puntuaciones?", "Limpiar puntuaciones", javax.swing.JOptionPane.YES_NO_OPTION) {
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(view, "¿Estás seguro de que quieres borrar todas las puntuaciones?", "Limpiar puntuaciones", javax.swing.JOptionPane.YES_NO_OPTION); {
             scores.clear();
             saveScores();
             loadScores();
@@ -72,7 +72,7 @@ public class ScoreController {
 
     public void saveScores() {
         try {
-            BufferedWritter writer = new BufferedWritter(new FileWriter(SCORES_FILE));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(SCORES_FILE));
             for (ScoreEntry entry : scores) {
                 writer.write(entry.toString());
                 writer.newLine();
@@ -89,7 +89,7 @@ public class ScoreController {
         sb.append("================================================================\n");
 
         for (int i=0; i<Math.min(scores.size(), 10); i++) {
-            ScoreEntry entry = score.get(i);
+            ScoreEntry entry = scores.get(i);
             sb.append(String.format("%-5d %-15s %-8d %-12d %-8d %-12s\n",
                 i + 1,
                 entry.playerName,

@@ -1,6 +1,6 @@
-package model;
+package Model;
 
-public class Player (
+public class Player {
     private int score;
     private int moves;
     private int treasuresFound;
@@ -64,4 +64,4 @@ public class Player (
         startTime = System.currentTimeMillis();
         endTime = 0;
     }
-)
+}

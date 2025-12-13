@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -26,7 +26,7 @@ public class CellButton extends JButton {
     public int getCol() {
         return col;
     }
-    public vollean isRevealed() {
+    public boolean isRevealed() {
         return revealed;
     }
 

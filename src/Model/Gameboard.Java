@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 import java.util.Random;
 
@@ -52,7 +52,7 @@ public class GameBoard {
         treasuresRemaining = totalTreasures;
         trapsRemaining = totalTraps;
 
-        placeItems(Cell.CellType.TREASUURE, totalTreasures);
+        placeItems(Cell.CellType.TREASURE, totalTreasures);
 
         placeItems(Cell.CellType.TRAP, totalTraps);
 
@@ -120,7 +120,7 @@ public class GameBoard {
         } else {
             // Si es una celda vacía, revelar celdas adyacentes si no hay tesoros cerca
             if (cell.getAdjacentTreasures() == 0) {
-                revealAdjacentCells(row, col);
+                revealedAdjacentCells(row, col);
             }
             return true;
         }
@@ -133,7 +133,7 @@ public class GameBoard {
                 if (!board[i][j].isRevealed() && board[i][j].isEmpty()) {
                     board[i][j].setRevealed(true);
                     if (board[i][j].getAdjacentTreasures() == 0) {
-                        revealAdjacentCells(i, j);
+                        revealedAdjacentCells(i, j);
                     }
                 }
             }

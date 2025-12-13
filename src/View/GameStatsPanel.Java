@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class GameStatsPanel extends JPanel {
 
     public GameStatsPanel() {
         setLayout(new GridLayout(6, 2, 10, 5));
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10,));
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setBackground(new Color(240, 240, 245));
 
         initializeComponents();
@@ -64,7 +64,7 @@ public class GameStatsPanel extends JPanel {
         hintButton.setFont(new Font("Arial", Font.PLAIN, 12));
         hintButton.setBackground(new Color(100, 200, 100));
         hintButton.setForeground(Color.WHITE);
-        hintButton.setEbavled(false);
+        hintButton.setEnabled(false);
 
         saveButton = new JButton("Guardar Juego");
         saveButton.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -113,7 +113,7 @@ public class GameStatsPanel extends JPanel {
         } else if (found == total) {
             treasuresValueLabel.setForeground(new Color(0, 100, 0));
         } else {
-            trasuresValueLabel.setForeground(new Color(255, 140, 0));
+            treasuresValueLabel.setForeground(new Color(255, 140, 0));
         }
     }
 

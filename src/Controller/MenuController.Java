@@ -1,6 +1,6 @@
-package controller;
+package Controller;
 
-import view.GameWindow;
+import View.GameWindow;
 
 public class MenuController {
     private GameWindow view;
@@ -10,7 +10,7 @@ public class MenuController {
     }
 
     public void startGame(int difficulty) {
-        view.showGame(difficulty)
+        view.showGame(difficulty);
     }
 
     public void showScores() {

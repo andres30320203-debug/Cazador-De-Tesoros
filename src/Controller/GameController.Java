@@ -1,16 +1,16 @@
-package controller;
+package Controller;
 
-import model.GameBoard;
-import model.GameState;
-import model.Cell;
-import view.GameWindow;
+import Model.GameBoard;
+import Model.GameState;
+import Model.Cell;
+import View.GameWindow;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameController {
     private GameWindow view;
-    private GameBoard model;
+    private GameBoard Model;
     private int currentDifficulty;
     private int hintsAvailable;
     private Timer hintTimer;
@@ -24,7 +24,7 @@ public class GameController {
         this.currentDifficulty = difficulty;
         this.hintsAvailable = 3;
         int size = getBoardSize(difficulty);
-        model = new GameBoard(size, difficulty);
+        Model = new GameBoard(size, difficulty);
         view.getGamePanel().resetBoard();
         view.getGamePanel().enableBoard(true);
         updateGameInfo();
@@ -41,7 +41,7 @@ public class GameController {
         hintTimer = new Timer(30000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (hintsAvailable < 5 && model != null && model.getState() == GameState.PLAYING) {
+                if (hintsAvailable < 5 && Model != null && Model.getState() == GameState.PLAYING) {
                     hintsAvailable++;
                     updateGameInfo();
                     view.getGamePanel().showHint("¡Has ganado una pista extra! Total: " + hintsAvailable);
@@ -53,40 +53,40 @@ public class GameController {
     }
     
     public void cellClicked(int row, int col) {
-        if (model == null || model.getState() != GameState.PLAYING) return;
+        if (Model == null || Model.getState() != GameState.PLAYING) return;
         
-        boolean result = model.revealCell(row, col);
+        boolean result = Model.revealCell(row, col);
         if (result) {
-            Cell cell = model.getCell(row, col);
+            Cell cell = Model.getCell(row, col);
             view.getGamePanel().updateCell(row, col, cell.toString());
             updateGameInfo();
             
             // Resaltar estadística si se encuentra tesoro
             if (cell.isTreasure()) {
-                view.getGamePanel().highlightStat("treasures");
-                view.getGamePanel().highlightStat("score");
+                view.getGamePanel().highlightStats("treasures");
+                view.getGamePanel().highlightStats("score");
             }
             
             // Verificar estado del juego
-            GameState state = model.getState();
+            GameState state = Model.getState();
             if (state == GameState.GAME_OVER) {
                 hintTimer.stop();
                 view.getGamePanel().showGameOver("¡Has caído en una trampa!\n\n" +
                     "Resumen de la partida:\n" +
-                    "Puntuación: " + model.getPlayer().getScore() + "\n" +
-                    "Movimientos: " + model.getPlayer().getMoves() + "\n" +
-                    "Tiempo: " + model.getPlayer().getElapsedTime() + "s\n" +
-                    "Tesoros encontrados: " + (model.getTotalTreasures() - model.getTreasuresRemaining()) + "/" + model.getTotalTreasures());
+                    "Puntuación: " + Model.getPlayer().getScore() + "\n" +
+                    "Movimientos: " + Model.getPlayer().getMoves() + "\n" +
+                    "Tiempo: " + Model.getPlayer().getElapsedTime() + "s\n" +
+                    "Tesoros encontrados: " + (Model.getTotalTreasures() - Model.getTreasuresRemaining()) + "/" + Model.getTotalTreasures());
                 view.getGamePanel().enableBoard(false);
                 saveScore();
             } else if (state == GameState.VICTORY) {
                 hintTimer.stop();
                 view.getGamePanel().showGameOver("¡Felicidades! ¡Has encontrado todos los tesoros!\n\n" +
                     "Resumen de la partida:\n" +
-                    "Puntuación: " + model.getPlayer().getScore() + "\n" +
-                    "Movimientos: " + model.getPlayer().getMoves() + "\n" +
-                    "Tiempo: " + model.getPlayer().getElapsedTime() + "s\n" +
-                    "Eficiencia: " + String.format("%.2f", (model.getPlayer().getScore() / (double)model.getPlayer().getMoves())) + " pts/mov");
+                    "Puntuación: " + Model.getPlayer().getScore() + "\n" +
+                    "Movimientos: " + Model.getPlayer().getMoves() + "\n" +
+                    "Tiempo: " + Model.getPlayer().getElapsedTime() + "s\n" +
+                    "Eficiencia: " + String.format("%.2f", (Model.getPlayer().getScore() / (double)Model.getPlayer().getMoves())) + " pts/mov");
                 view.getGamePanel().enableBoard(false);
                 saveScore();
             }
@@ -94,14 +94,14 @@ public class GameController {
     }
     
     public void updateGameInfo() {
-        if (model != null) {
+        if (Model != null) {
             // Actualizar todas las estadísticas en el GameStatsPanel
             view.getGamePanel().setGameStats(
-                model.getPlayer().getScore(),
-                model.getPlayer().getMoves(),
-                model.getPlayer().getElapsedTime(),
-                model.getTotalTreasures() - model.getTreasuresRemaining(),
-                model.getTotalTreasures(),
+                Model.getPlayer().getScore(),
+                Model.getPlayer().getMoves(),
+                Model.getPlayer().getElapsedTime(),
+                Model.getTotalTreasures() - Model.getTreasuresRemaining(),
+                Model.getTotalTreasures(),
                 getDifficultyName(currentDifficulty),
                 hintsAvailable
             );
@@ -109,7 +109,7 @@ public class GameController {
     }
     
     public void useHint() {
-        if (model == null || model.getState() != GameState.PLAYING) {
+        if (Model == null || Model.getState() != GameState.PLAYING) {
             view.getGamePanel().showHint("No hay una partida en curso.");
             return;
         }
@@ -121,18 +121,18 @@ public class GameController {
         
         // Buscar un tesoro no encontrado para dar pista
         boolean hintGiven = false;
-        int boardSize = model.getSize();
+        int boardSize = Model.getSize();
         
         for (int i = 0; i < boardSize && !hintGiven; i++) {
             for (int j = 0; j < boardSize && !hintGiven; j++) {
-                Cell cell = model.getCell(i, j);
+                Cell cell = Model.getCell(i, j);
                 if (cell.isTreasure() && !cell.isRevealed()) {
                     // Dar pista sobre celdas adyacentes
                     for (int x = Math.max(0, i - 1); x <= Math.min(boardSize - 1, i + 1) && !hintGiven; x++) {
                         for (int y = Math.max(0, j - 1); y <= Math.min(boardSize - 1, j + 1) && !hintGiven; y++) {
                             if (x == i && y == j) continue;
                             
-                            Cell adjacent = model.getCell(x, y);
+                            Cell adjacent = Model.getCell(x, y);
                             if (adjacent.isEmpty() && adjacent.isRevealed()) {
                                 // Dar pista basada en esta celda revelada
                                 hintsAvailable--;
@@ -143,7 +143,7 @@ public class GameController {
                                     " de la celda [" + (x+1) + "," + (y+1) + "]\n" +
                                     "Pistas restantes: " + hintsAvailable);
                                 hintGiven = true;
-                                view.getGamePanel().highlightStat("score");
+                                view.getGamePanel().highlightStats("score");
                             }
                         }
                     }
@@ -156,7 +156,7 @@ public class GameController {
             hintsAvailable--;
             updateGameInfo();
             
-            int unrevealedTreasures = model.getTreasuresRemaining();
+            int unrevealedTreasures = Model.getTreasuresRemaining();
             view.getGamePanel().showHint("¡Pista utilizada!\n" +
                 "Tesoros restantes: " + unrevealedTreasures + "\n" +
                 "Busca en áreas con más números altos alrededor\n" +
@@ -180,7 +180,7 @@ public class GameController {
     }
     
     public void saveGame() {
-        if (model == null) {
+        if (Model == null) {
             view.getGamePanel().showHint("No hay partida para guardar.");
             return;
         }
@@ -188,9 +188,9 @@ public class GameController {
         int choice = javax.swing.JOptionPane.showConfirmDialog(
             view,
             "¿Deseas guardar la partida actual?\n" +
-            "Puntuación: " + model.getPlayer().getScore() + "\n" +
-            "Tesoros: " + (model.getTotalTreasures() - model.getTreasuresRemaining()) + "/" + model.getTotalTreasures() + "\n" +
-            "Tiempo: " + model.getPlayer().getElapsedTime() + "s",
+            "Puntuación: " + Model.getPlayer().getScore() + "\n" +
+            "Tesoros: " + (Model.getTotalTreasures() - Model.getTreasuresRemaining()) + "/" + Model.getTotalTreasures() + "\n" +
+            "Tiempo: " + Model.getPlayer().getElapsedTime() + "s",
             "Guardar Partida",
             javax.swing.JOptionPane.YES_NO_OPTION
         );
@@ -220,7 +220,7 @@ public class GameController {
     }
     
     public void restartGame() {
-        if (model != null) {
+        if (Model != null) {
             int confirm = javax.swing.JOptionPane.showConfirmDialog(
                 view,
                 "¿Estás seguro de que quieres reiniciar la partida?\n" +
@@ -236,7 +236,7 @@ public class GameController {
     }
     
     public void showMenu() {
-        if (model != null && model.getState() == GameState.PLAYING) {
+        if (Model != null && Model.getState() == GameState.PLAYING) {
             int confirm = javax.swing.JOptionPane.showConfirmDialog(
                 view,
                 "¿Estás seguro de que quieres volver al menú?\n" +
@@ -276,7 +276,7 @@ public class GameController {
     }
     
     private void saveScore() {
-        if (model.getPlayer().getScore() > 0) {
+        if (Model.getPlayer().getScore() > 0) {
             String playerName = javax.swing.JOptionPane.showInputDialog(
                 view, 
                 "¡Nueva puntuación alta!\nIngresa tu nombre para guardarla:",
@@ -288,9 +288,9 @@ public class GameController {
                 ScoreController scoreController = new ScoreController(view);
                 scoreController.addScore(
                     playerName,
-                    model.getPlayer().getScore(),
-                    model.getPlayer().getMoves(),
-                    model.getPlayer().getElapsedTime(),
+                    Model.getPlayer().getScore(),
+                    Model.getPlayer().getMoves(),
+                    Model.getPlayer().getElapsedTime(),
                     getDifficultyName(currentDifficulty)
                 );
                 
@@ -308,14 +308,14 @@ public class GameController {
     
     // Getters para información del juego
     public int getCurrentScore() {
-        return model != null ? model.getPlayer().getScore() : 0;
+        return Model != null ? Model.getPlayer().getScore() : 0;
     }
     
     public int getRemainingTreasures() {
-        return model != null ? model.getTreasuresRemaining() : 0;
+        return Model != null ? Model.getTreasuresRemaining() : 0;
     }
     
     public GameState getGameState() {
-        return model != null ? model.getState() : GameState.NOT_STARTED;
+        return Model != null ? Model.getState() : GameState.NOT_STARTED;
     }
 }

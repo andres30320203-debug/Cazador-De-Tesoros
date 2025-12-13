@@ -1,10 +1,10 @@
-package view;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
-import controler.MenuController;
+import Controller.MenuController;
 
-public class MenuPanel extends JPanel (
+public class MenuPanel extends JPanel {
     private MenuController controller;
 
     public MenuPanel(MenuController controller) {
@@ -96,4 +96,4 @@ public class MenuPanel extends JPanel (
         
         return button;
     }
-)
+}

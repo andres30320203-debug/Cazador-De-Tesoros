@@ -1,6 +1,6 @@
-package main;
+package Main;
 
-import view.GameWindow;
+import View.GameWindow;
 import javax.swing.SwingUtilities;
 
 public class Main {

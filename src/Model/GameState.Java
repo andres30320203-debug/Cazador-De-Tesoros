@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 public enum GameState {
     NOT_STARTED,

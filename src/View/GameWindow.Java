@@ -1,10 +1,10 @@
-package view;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
-import controller.GameController;
-import controller.MenuController;
-import controller.ScoreController;
+import Controller.GameController;
+import Controller.MenuController;
+import Controller.ScoreController;
 
 public class GameWindow extends JFrame {
     private CardLayout cardLayout;
@@ -82,7 +82,7 @@ public class GameWindow extends JFrame {
         switch(difficulty) {
             case 1: return 8;
             case 2: return 10;
-            case 3: return 12
+            case 3: return 12;
             default: return 8;
         }
     }

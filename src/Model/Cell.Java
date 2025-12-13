@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 public class Cell {
     public enum CellType {
@@ -15,7 +15,7 @@ public class Cell {
         this.row = row;
         this.col =col;
         this.type = CellType.EMPTY;
-        this.reveales = false;
+        this.revealed = false;
         this.adjacentTreasures = 0;
     }
 

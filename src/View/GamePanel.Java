@@ -1,8 +1,8 @@
-package view;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
-import controller.GameController;
+import Controller.GameController;
 
 public class GamePanel extends JPanel {
     private GameController controller;
@@ -22,7 +22,7 @@ public class GamePanel extends JPanel {
     private void initializeComponents() {
         // Panel de estadisticas a la izquierda
         statsPanel = new GameStatsPanel();
-        statsPanel.setPreferredSize(new Dimension(200, o));
+        statsPanel.setPreferredSize(new Dimension(200, 600));
 
         //Añadir listeners a los botones del panel de estadisicas
         statsPanel.addHintButtonListener(e -> controller.useHint());
@@ -59,6 +59,7 @@ public class GamePanel extends JPanel {
     public void initializeBoard(int sizw) {
         JPanel boardPanel = (JPanel) getComponent(1);
         boardPanel.removeAll();
+        int size = 0;
         boardPanel.setLayout(new GridLayout(size, size, 2, 2));
 
         cellButtons = new CellButton[size][size];
@@ -111,11 +112,11 @@ public class GamePanel extends JPanel {
         gameTimer.start();
     }
 
-    public void enableBoard(bollean enabled) {
+    public void enableBoard(boolean enabled) {
         if (cellButtons != null) {
             for (CellButton[] row : cellButtons) {
                 for (CellButton cell : row) {
-                    ceel.setEnabled(enabled && !cell.isRevealed());
+                    cell.setEnabled(enabled && !cell.isRevealed());
                 }
             }
         }
@@ -126,6 +127,6 @@ public class GamePanel extends JPanel {
     }
 
     public void highlightStats(String stat) {
-        statsPanel.highlightStats(stat);
+        statsPanel.highlightStat(stat);
     }
 }

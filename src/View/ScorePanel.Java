@@ -1,8 +1,8 @@
-package view;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
-import controller.ScoreController;
+import Controller.ScoreController;
 
 public class ScorePanel extends JPanel {
     private ScoreController controller;
@@ -31,7 +31,7 @@ public class ScorePanel extends JPanel {
         scoresArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JScrollPane scrollPane = new JScrollPane(scoresArea);
-        scrollPlane.setBorder(BorderFactory.createTitleBorder("Puntuaciones"));
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Puntuaciones"));
         
         add(scrollPane, BorderLayout.CENTER);
 
